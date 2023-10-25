@@ -1,7 +1,6 @@
 import {
     App,
     Editor,
-    EventRef,
     Notice,
     Plugin,
     PluginSettingTab,
@@ -21,7 +20,6 @@ const DEFAULT_SETTINGS: PasteLinkPluginSettings = {
 
 export default class PasteLinkPlugin extends Plugin {
     settings: PasteLinkPluginSettings;
-    pasteEventRef: EventRef | null = null;
     isShiftDown = false;
 
     onKeyDown(e: KeyboardEvent) {
@@ -80,9 +78,8 @@ export default class PasteLinkPlugin extends Plugin {
                 "keydown",
                 this.onKeyDown.bind(this)
             );
-            this.pasteEventRef = this.app.workspace.on(
-                "editor-paste",
-                this.onPaste.bind(this)
+            this.registerEvent(
+                this.app.workspace.on("editor-paste", this.onPaste.bind(this))
             );
         }
 
@@ -91,12 +88,6 @@ export default class PasteLinkPlugin extends Plugin {
             name: "Paste Markdown link",
             editorCallback: this.onCommand.bind(this),
         });
-    }
-
-    onunload() {
-        if (this.pasteEventRef) {
-            this.app.workspace.offref(this.pasteEventRef);
-        }
     }
 
     async loadSettings() {
