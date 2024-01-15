@@ -59,4 +59,12 @@ describe("makeLink", () => {
             "[Example with & and =](https://www.example.com)";
         expect(makeLink(title, content)).toBe(expectedOutput);
     });
+
+    it("should wrap link with angle brackets if it contains a space", () => {
+        const title = "Blue jay";
+        const content = "https://en.wikipedia.org/wiki/Blue jay";
+        const expectedOutput =
+            "[Blue jay](<https://en.wikipedia.org/wiki/Blue jay>)";
+        expect(makeLink(title, content)).toBe(expectedOutput);
+    });
 });
