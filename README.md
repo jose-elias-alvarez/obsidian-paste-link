@@ -18,7 +18,13 @@ This command inserts a link if the clipboard contains a URL and behaves like the
 
 ## Notes
 
-This plugin is meant to improve on [obsidian-url-into-selection](https://github.com/denolehov/obsidian-url-into-selection), though I don't intend to replicate all of its functionality. If you run into a problem, please open an issue.
+The plugin is meant to improve on [obsidian-url-into-selection](https://github.com/denolehov/obsidian-url-into-selection) in the following ways:
+
+-   A hotkey (Shift) to paste a link as plain text
+-   An option to disable overriding the paste handler and use a dedicated command instead
+-   Cleaner code, which also resulted in fixing occasional bugs and edge cases
+
+Replicating the precise behavior of that plugin is not a goal, but if you have a feature request or find a bug, please open an issue.
 
 ### URLs
 
