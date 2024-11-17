@@ -8,23 +8,26 @@ Intelligently paste Markdown links.
 
 When you paste your clipboard's content into Obsidian, the plugin will check to see if it's a URL. If so, it'll insert the content as a Markdown link, using any selected text as a title. Otherwise, it'll just paste the text as normal.
 
-Holding `Shift` while pasting will also force a standard paste, regardless of the clipboard's content.
-
 ### Manual
 
-If you prefer to use a separate command / keyboard shortcut, you can disable the `Override paste handler` setting, restart Obsidian, and then use the `Paste Link: Paste Markdown link` command.
+If you prefer to use a separate command, you can disable the `Override paste handler` setting, restart Obsidian, and then use the `Paste Markdown link` command, which can be bound to any key combination of your choice in Obsidian's settings.
 
-This command inserts a link if the clipboard contains a URL and behaves like the standard `Insert Markdown link` command otherwise, so you can replace the default `Insert Markdown link` keybinding with the command provided by this plugin, if you like.
+This command inserts a link if the clipboard contains a URL and behaves like the standard `Insert Markdown link` command otherwise, so if you like, you can replace the default `Insert Markdown link` keybinding with the command provided by this plugin.
+
+### Paste as plain text
+
+If your clipboard contains a URL but you don't want to paste it as a Markdown link, use the `Paste URL as plain text` command, which is bound by default to Shift + Command + V on macOS / iOS and to Shift + Control + V everywhere else.
 
 ## Notes
 
 The plugin is meant to improve on [obsidian-url-into-selection](https://github.com/denolehov/obsidian-url-into-selection) in the following ways:
 
--   A hotkey (Shift) to paste a link as plain text
--   An option to disable overriding the paste handler and use a dedicated command instead
+-   An option to disable overriding Obsidian's paste handler
+-   Separate commands to control pasting behavior
+-   An option to fetch and use page titles
 -   Cleaner code, which also resulted in fixing occasional bugs and edge cases
 
-Replicating the precise behavior of that plugin is not a goal, but if you have a feature request or find a bug, please open an issue.
+Replicating the precise behavior of obsidian-url-into-selection is not a goal, but if you have a feature request or find a bug, please open an issue.
 
 ### URLs
 
@@ -47,7 +50,7 @@ Additionally, URLs containing newlines are not handled, since Obsidian doesn't s
 
 ### Fetch page titles
 
-If enabled, the plugin will attempt to fetch page titles from HTTP URLs and use them as titles when pasting links.
+If enabled, the plugin will always attempt to fetch page titles from HTTP URLs and use them as titles when pasting links. You can also fetch page titles on demand using the `Paste link and fetch page title` command.
 
 Note that titles from some pages (e.g. Reddit) may fail to load. The priority here is speed and predictability, not absolute correctness. If you rely heavily on this functionality, I recommend [obsidian-auto-link-title](https://github.com/zolrath/obsidian-auto-link-title).
 
