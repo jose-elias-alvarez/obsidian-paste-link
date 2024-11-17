@@ -52,8 +52,9 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
                     debounce(
                         async (value) => {
                             try {
-                                this.plugin.settings.pageTitleRegex =
-                                    new RegExp(value).source;
+                                this.plugin.settings.pageTitleRegex = value
+                                    ? new RegExp(value).source
+                                    : value;
                             } catch (_) {
                                 new Notice(`Failed to parse regex: ${value}`);
                                 return;
