@@ -4,7 +4,7 @@ import cleanTitle from "./utils/clean-title";
 const tryFetchTitle = async (url: URL, regex: string) => {
     if (!["http:", "https:"].includes(url.protocol)) return;
 
-    new Notice(`Fetching title from ${url.href}`);
+    new Notice(`Attempting to fetch title from ${url.href}`);
     const response = await requestUrl({
         url: url.href,
         headers: {
@@ -15,7 +15,7 @@ const tryFetchTitle = async (url: URL, regex: string) => {
     });
     if (!response.headers["content-type"].includes("text/html"))
         throw new Error(
-            `Received invalid content type from URL ${url.href}: ${response.headers["content-type"]}`
+            `Invalid content type for ${url.href}: ${response.headers["content-type"]}`
         );
     return cleanTitle(
         new DOMParser().parseFromString(response.text, "text/html").title,
