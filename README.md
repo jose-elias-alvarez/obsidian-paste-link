@@ -45,6 +45,16 @@ example.com
 
 Additionally, URLs containing newlines are not handled, since Obsidian doesn't support multiline links.
 
+### Fetch page titles
+
+If enabled, the plugin will attempt to fetch page titles from HTTP URLs and use them as titles when pasting links.
+
+Note that titles from some pages (e.g. Reddit) may fail to load. The priority here is speed and predictability, not absolute correctness. If you rely heavily on this functionality, I recommend [obsidian-auto-link-title](https://github.com/zolrath/obsidian-auto-link-title).
+
+-   You can "clean" titles by setting a regular expression in the plugin's settings. The first capture group will be used as the title.
+-   To always keep the entire title, use an empty string.
+-   Selected text will always be used as the title.
+
 ### Edge cases
 
 The paste handler tries to handle these edge cases intelligently:
