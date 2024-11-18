@@ -54,9 +54,16 @@ If the `Fetch page titles on paste` setting is enabled, the plugin will attempt 
 
 Note that titles from some pages (e.g. Reddit) may fail to load. The priority here is speed and predictability, not absolute correctness. If you rely heavily on this functionality, I recommend [obsidian-auto-link-title](https://github.com/zolrath/obsidian-auto-link-title).
 
--   You can "clean" titles by setting a regular expression in the plugin's settings. The first capture group will be used as the title.
--   To always keep the entire title, use an empty string.
--   Selected text will always be used as the title.
+#### Page title regexes
+
+You can optionally "clean" page titles using regular expressions, which are configured in the plugin's settings. Each entry there consists of two regular expressions:
+
+1. A page regex, which is matched against the page's full URL.
+2. A title regex, which is matched against the page's fetched title. The value of the first capture group is treated as the title.
+
+Regexes are matched top to bottom, so you can set values for specific sites as well as fallbacks. If no match is found, the plugin will use the full page title.
+
+Note that regexes are parsed using the [Javascript RegExp() constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/RegExp). Use [regex101](https://regex101.com) for validation. (If you're not good with regular expressions, ask ChatGPT.)
 
 ### Edge cases
 

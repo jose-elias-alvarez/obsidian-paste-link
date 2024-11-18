@@ -29,7 +29,10 @@ export default class PasteLinkPlugin extends Plugin {
         let title: string | undefined;
         if (fetchPageTitle && !editor.getSelection()) {
             try {
-                title = await tryFetchTitle(url, this.settings.pageTitleRegex);
+                title = await tryFetchTitle(
+                    url,
+                    this.settings.pageTitleRegexes
+                );
             } catch (error) {
                 console.error(
                     `Failed to fetch page title for ${url.href}: ${error}`
