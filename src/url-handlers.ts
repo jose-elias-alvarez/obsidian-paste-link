@@ -37,9 +37,5 @@ export const defaultUrlHandler = async (url: URL) => {
             Range: "bytes=0-8000",
         },
     });
-    if (!response.headers["content-type"].includes("text/html"))
-        throw new Error(
-            `Invalid content type for ${url.href}: ${response.headers["content-type"]}`
-        );
     return new DOMParser().parseFromString(response.text, "text/html").title;
 };
