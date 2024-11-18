@@ -64,7 +64,7 @@ export default class PasteLinkPlugin extends Plugin {
             this.app.commands.executeCommandById("editor:insert-link");
             return;
         }
-        await this.handleUrl(editor, url, content);
+        await this.handleUrl(editor, url, content, false);
     }
 
     async pasteLinkAndFetchTitle(editor: Editor) {
