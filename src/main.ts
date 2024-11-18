@@ -29,7 +29,13 @@ export default class PasteLinkPlugin extends Plugin {
         let title: string | undefined;
         if (fetchPageTitle && !editor.getSelection()) {
             try {
-                title = await tryFetchTitle(url, this.settings.pageTitleRegex);
+                // obsidian fetch wrapper doesn't support AbortController, so just race it against a timeout
+                title = await Promise.race([
+                    tryFetchTitle(url, this.settings.pageTitleRegex),
+                    new Promise<undefined>((_, reject) =>
+                        setTimeout(reject, this.settings.fetchPageTitleTimeout)
+                    ),
+                ]);
             } catch (error) {
                 console.error(
                     `Failed to fetch page title for ${url.href}: ${error}`

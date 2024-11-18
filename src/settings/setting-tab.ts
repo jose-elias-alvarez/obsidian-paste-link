@@ -45,6 +45,24 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
             );
 
         new Setting(containerEl)
+            .setName("Fetch page timeout")
+            .setDesc(
+                "How many milliseconds to wait to fetch page titles before timing out"
+            )
+            .addText((cb) =>
+                cb
+                    .setValue(
+                        this.plugin.settings.fetchPageTitleTimeout.toString()
+                    )
+                    .onChange(async (value) => {
+                        const asNumber = Number(value);
+                        if (isNaN(asNumber) || asNumber < 0) return;
+                        this.plugin.settings.fetchPageTitleTimeout = asNumber;
+                        await this.plugin.saveSettings();
+                    })
+            );
+
+        new Setting(containerEl)
             .setName("Page title regex")
             .setDesc(
                 "Regular expression used to clean page titles before pasting (see documentation)"
