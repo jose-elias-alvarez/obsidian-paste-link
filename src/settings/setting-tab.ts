@@ -1,6 +1,5 @@
 import { App, Notice, PluginSettingTab, Setting } from "obsidian";
 import PasteLinkPlugin from "../main";
-import NewRegexSetting from "./new-regex";
 import RegexSetting from "./regex";
 
 export default class PasteLinkPluginSettingTab extends PluginSettingTab {
@@ -50,7 +49,6 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
                 "Regular expressions used to clean page titles before pasting (see documentation)"
             )
             .setHeading();
-        new NewRegexSetting(this.plugin, this, this.containerEl);
         this.plugin.settings.pageTitleRegexes.forEach(
             (regexes, index) =>
                 new RegexSetting(
@@ -60,6 +58,13 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
                     regexes,
                     index
                 )
+        );
+        new Setting(this.containerEl).addExtraButton((cb) =>
+            cb.setIcon("circle-plus").onClick(async () => {
+                this.plugin.settings.pageTitleRegexes.push([]);
+                await this.plugin.saveSettings();
+                this.display();
+            })
         );
     }
 }
