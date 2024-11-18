@@ -52,7 +52,7 @@ Additionally, URLs containing newlines are not handled, since Obsidian doesn't s
 
 If the `Fetch page titles on paste` setting is enabled, the plugin will attempt to fetch page titles from HTTP URLs and use them as titles when `Override paste handler` is enabled. Alternatively, you can also fetch page titles on demand using the `Paste link and fetch page title` command.
 
-Note that titles from some pages (e.g. Reddit) may fail to load. The priority here is speed and predictability, not absolute correctness. If you rely heavily on this functionality, I recommend [obsidian-auto-link-title](https://github.com/zolrath/obsidian-auto-link-title).
+Note that some pages (e.g. SPAs) may not include the full title in their HTML. Exceptions are handled on a best-case basis, and contributions to add new handlers are very welcome.
 
 #### Page title regexes
 
