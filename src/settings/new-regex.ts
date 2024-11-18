@@ -38,7 +38,7 @@ export default class NewRegexSetting extends Setting {
             .addExtraButton((cb) =>
                 cb.setIcon("circle-plus").onClick(async () => {
                     if (this.regexes.every(Boolean)) {
-                        plugin.settings.pageTitleRegexes.push([
+                        plugin.settings.pageTitleRegexes.unshift([
                             this.regexes[0],
                             this.regexes[1],
                         ]);

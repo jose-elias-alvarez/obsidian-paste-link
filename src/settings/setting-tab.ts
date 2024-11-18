@@ -50,6 +50,7 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
                 "Regular expressions used to clean page titles before pasting (see documentation)"
             )
             .setHeading();
+        new NewRegexSetting(this.plugin, this, this.containerEl);
         this.plugin.settings.pageTitleRegexes.forEach(
             (regexes, index) =>
                 new RegexSetting(
@@ -60,6 +61,5 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
                     index
                 )
         );
-        new NewRegexSetting(this.plugin, this, this.containerEl);
     }
 }
