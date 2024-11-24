@@ -20,14 +20,19 @@ If your clipboard contains a URL but you don't want to paste it as a Markdown li
 
 ## Notes
 
-The plugin is meant to improve on [obsidian-url-into-selection](https://github.com/denolehov/obsidian-url-into-selection) in the following ways:
+The plugin was originally inspired by [obsidian-url-into-selection](https://github.com/denolehov/obsidian-url-into-selection) and seeks to improve on it in the following ways:
 
 -   An option to disable overriding Obsidian's paste handler
 -   Separate commands to control pasting behavior
--   An option to fetch and use page titles
 -   Cleaner code, which also resulted in fixing occasional bugs and edge cases
 
-Replicating the precise behavior of obsidian-url-into-selection is not a goal, but if you have a feature request or find a bug, please open an issue.
+The ability to fetch page titles was inspired by [obsidian-auto-link-title](https://github.com/zolrath/obsidian-auto-link-title) and incorporates the following improvements:
+
+-   Using `fetch()` vs. an Electron window to get page titles, which is faster and more predictable
+-   Page-specific handlers for sites that don't normally expose titles (e.g. Reddit)
+-   An option to "clean" page titles using page-specific regular expressions
+
+100% feature parity with these plugins is not a goal, but if you have a feature request or find a bug, please open an issue.
 
 ### URLs
 
