@@ -1,5 +1,6 @@
-import { App, Notice, PluginSettingTab, Setting, debounce } from "obsidian";
+import { App, Notice, PluginSettingTab, Setting } from "obsidian";
 import PasteLinkPlugin from "../main";
+import RegexSetting from "./regex";
 
 export default class PasteLinkPluginSettingTab extends PluginSettingTab {
     plugin: PasteLinkPlugin;
@@ -9,11 +10,9 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
         this.plugin = plugin;
     }
 
-    display(): void {
-        const { containerEl } = this;
-        containerEl.empty();
-
-        new Setting(containerEl)
+    display() {
+        this.containerEl.empty();
+        new Setting(this.containerEl)
             .setName("Override paste handler")
             .setDesc(
                 "Override Obsidian's default paste handler so that links are automatically inserted on system paste"
@@ -30,7 +29,7 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
                     })
             );
 
-        new Setting(containerEl)
+        new Setting(this.containerEl)
             .setName("Fetch page titles on paste")
             .setDesc(
                 "Attempt to fetch page titles from HTTP URLs on paste when paste handler is overridden"
@@ -44,7 +43,7 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
                     })
             );
 
-        new Setting(containerEl)
+        new Setting(this.containerEl)
             .setName("Fetch page timeout")
             .setDesc(
                 "How many milliseconds to wait to fetch page titles before timing out"
@@ -62,30 +61,28 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
                     })
             );
 
-        new Setting(containerEl)
-            .setName("Page title regex")
+        new Setting(this.containerEl)
+            .setName("Page title regexes")
             .setDesc(
-                "Regular expression used to clean page titles before pasting (see documentation)"
+                "Regular expressions used to clean page titles before pasting (see documentation)"
             )
-            .addText((text) =>
-                text.setValue(this.plugin.settings.pageTitleRegex).onChange(
-                    debounce(
-                        async (value) => {
-                            try {
-                                this.plugin.settings.pageTitleRegex = value
-                                    ? new RegExp(value).source
-                                    : value;
-                            } catch (_) {
-                                new Notice(`Failed to parse regex: ${value}`);
-                                return;
-                            }
-
-                            await this.plugin.saveSettings();
-                        },
-                        200,
-                        true
-                    )
+            .setHeading();
+        this.plugin.settings.pageTitleRegexes.forEach(
+            (regexes, index) =>
+                new RegexSetting(
+                    this.plugin,
+                    this,
+                    this.containerEl,
+                    regexes,
+                    index
                 )
-            );
+        );
+        new Setting(this.containerEl).addExtraButton((cb) =>
+            cb.setIcon("circle-plus").onClick(async () => {
+                this.plugin.settings.pageTitleRegexes.push([]);
+                await this.plugin.saveSettings();
+                this.display();
+            })
+        );
     }
 }

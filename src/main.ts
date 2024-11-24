@@ -31,7 +31,7 @@ export default class PasteLinkPlugin extends Plugin {
             try {
                 // obsidian fetch wrapper doesn't support AbortController, so just race it against a timeout
                 title = await Promise.race([
-                    tryFetchTitle(url, this.settings.pageTitleRegex),
+                    tryFetchTitle(url, this.settings.pageTitleRegexes),
                     new Promise<undefined>((_, reject) =>
                         setTimeout(
                             () =>
