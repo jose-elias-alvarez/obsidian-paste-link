@@ -33,7 +33,13 @@ export default class PasteLinkPlugin extends Plugin {
                 title = await Promise.race([
                     tryFetchTitle(url, this.settings.pageTitleRegexes),
                     new Promise<undefined>((_, reject) =>
-                        setTimeout(reject, this.settings.fetchPageTitleTimeout)
+                        setTimeout(
+                            () =>
+                                reject(
+                                    `Fetch page title timed out after ${this.settings.fetchPageTitleTimeout}`
+                                ),
+                            this.settings.fetchPageTitleTimeout
+                        )
                     ),
                 ]);
             } catch (error) {
