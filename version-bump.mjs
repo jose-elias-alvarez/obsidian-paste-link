@@ -39,5 +39,5 @@ const targetVersion = process.env.npm_package_version;
     execSync(
         `git add package.json package-lock.json manifest.json versions.json && git commit -m 'chore: ${targetVersion}'`
     );
-    execSync(`git tag ${targetVersion}`);
+    execSync(`git tag -a ${targetVersion} -m ${targetVersion}`);
 })();
