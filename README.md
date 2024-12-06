@@ -70,6 +70,15 @@ Regexes are matched top to bottom, so you can set values for specific sites as w
 
 Note that regexes are parsed using the [Javascript RegExp() constructor](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/RegExp). Use [regex101](https://regex101.com) for validation. (If you're not good with regular expressions, ask ChatGPT.)
 
+A few examples from my configuration:
+
+| Page regex                                    | Title regex               | Original                                                           | Cleaned                   |
+| --------------------------------------------- | ------------------------- | ------------------------------------------------------------------ | ------------------------- |
+| `^https?://(?:www\\.)?github\\.com/.+?/issue` | `^(.+?)·`                 | Add dark mode support · Issue #123 · raycast/extensions            | Add dark mode support     |
+| `^https?://(?:www\\.)?github\\.com`           | `GitHub\\s*-\\s*([^:]+)`  | GitHub - raycast/extensions: Everything you need to extend Raycast | raycast/extensions        |
+| `^https?://(?:www\\.)?youtube\\.com`          | `(.+?)(?:\\s*-[^-]*$\|$)` | Rust Tutorial Full Course - YouTube                                | Rust Tutorial Full Course |
+| `.+?`                                         | `^(.+?)[\|–—•·-]`         | How to use promises - Learn web development \| MDN                 | How to use promises       |
+
 ### Edge cases
 
 The paste handler tries to handle these edge cases intelligently:
