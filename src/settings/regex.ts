@@ -10,7 +10,7 @@ export default class RegexSetting extends Setting {
         settingTab: PasteLinkPluginSettingTab,
         containerEl: HTMLElement,
         regexes: string[],
-        index: number
+        index: number,
     ) {
         super(containerEl);
         this.addText((cb) =>
@@ -21,7 +21,7 @@ export default class RegexSetting extends Setting {
                     plugin.settings.pageTitleRegexes[index][0] = value;
                     await plugin.saveSettings();
                 })
-                .inputEl.addClass(CLASS_NAMES.regexInput)
+                .inputEl.addClass(CLASS_NAMES.regexInput),
         )
             .addText((cb) =>
                 cb
@@ -31,7 +31,7 @@ export default class RegexSetting extends Setting {
                         plugin.settings.pageTitleRegexes[index][1] = value;
                         await plugin.saveSettings();
                     })
-                    .inputEl.addClass(CLASS_NAMES.regexInput)
+                    .inputEl.addClass(CLASS_NAMES.regexInput),
             )
             .addExtraButton((cb) =>
                 cb
@@ -42,23 +42,23 @@ export default class RegexSetting extends Setting {
                         await plugin.saveSettings();
                         settingTab.display();
                     })
-                    .extraSettingsEl.addClass(CLASS_NAMES.regexMoveButton)
+                    .extraSettingsEl.addClass(CLASS_NAMES.regexMoveButton),
             )
             .addExtraButton((cb) =>
                 cb
                     .setIcon("move-down")
                     .setDisabled(
-                        index === plugin.settings.pageTitleRegexes.length - 1
+                        index === plugin.settings.pageTitleRegexes.length - 1,
                     )
                     .onClick(async () => {
                         moveElementDown(
                             plugin.settings.pageTitleRegexes,
-                            index
+                            index,
                         );
                         await plugin.saveSettings();
                         settingTab.display();
                     })
-                    .extraSettingsEl.addClass(CLASS_NAMES.regexMoveButton)
+                    .extraSettingsEl.addClass(CLASS_NAMES.regexMoveButton),
             )
             .addExtraButton((cb) =>
                 cb
@@ -68,7 +68,7 @@ export default class RegexSetting extends Setting {
                         await plugin.saveSettings();
                         settingTab.display();
                     })
-                    .extraSettingsEl.addClass(CLASS_NAMES.regexDeleteButton)
+                    .extraSettingsEl.addClass(CLASS_NAMES.regexDeleteButton),
             );
         this.infoEl.addClass(CLASS_NAMES.regexInfoEl);
         return this;

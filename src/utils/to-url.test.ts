@@ -27,7 +27,7 @@ describe("toUrl", () => {
 
     it("should return URL object for a valid URL with a query parameter", () => {
         expect(toUrl("https://www.example.com?param=value")).toBeInstanceOf(
-            URL
+            URL,
         );
     });
 
