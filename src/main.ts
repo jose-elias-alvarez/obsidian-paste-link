@@ -24,14 +24,25 @@ export default class PasteLinkPlugin extends Plugin {
         editor: Editor,
         url: URL,
         content: string,
-        fetchPageTitle = this.settings.fetchPageTitle
+        options: {
+            fetchPageTitle?: boolean;
+            fetchFullTitle?: boolean;
+        } = {}
     ) {
+        const { fetchPageTitle, fetchFullTitle } = {
+            fetchPageTitle: this.settings.fetchPageTitle,
+            fetchFullTitle: false,
+            ...options,
+        };
         let title: string | undefined;
         if (fetchPageTitle && !editor.getSelection()) {
             try {
                 // obsidian fetch wrapper doesn't support AbortController, so just race it against a timeout
                 title = await Promise.race([
-                    tryFetchTitle(url, this.settings.pageTitleRegexes),
+                    tryFetchTitle(
+                        url,
+                        fetchFullTitle ? [] : this.settings.pageTitleRegexes
+                    ),
                     new Promise<undefined>((_, reject) =>
                         setTimeout(
                             () =>
@@ -76,7 +87,7 @@ export default class PasteLinkPlugin extends Plugin {
             this.app.commands.executeCommandById("editor:insert-link");
             return;
         }
-        await this.handleUrl(editor, url, content, false);
+        await this.handleUrl(editor, url, content, { fetchPageTitle: false });
     }
 
     async pasteLinkAndFetchTitle(editor: Editor) {
@@ -88,7 +99,22 @@ export default class PasteLinkPlugin extends Plugin {
             );
             return;
         }
-        await this.handleUrl(editor, url, content, true);
+        await this.handleUrl(editor, url, content, { fetchPageTitle: true });
+    }
+
+    async pasteLinkAndFetchFullTitle(editor: Editor) {
+        const content = await navigator.clipboard.readText();
+        const url = toUrl(content);
+        if (!url) {
+            new Notice(
+                `Failed to convert clipboard content to URL: ${content}`
+            );
+            return;
+        }
+        await this.handleUrl(editor, url, content, {
+            fetchPageTitle: true,
+            fetchFullTitle: true,
+        });
     }
 
     async pasteAsPlainText(editor: Editor) {
@@ -130,6 +156,11 @@ export default class PasteLinkPlugin extends Plugin {
             id: "paste-link-and-fetch-title",
             name: "Paste link and fetch page title",
             editorCallback: this.pasteLinkAndFetchTitle.bind(this),
+        });
+        this.addCommand({
+            id: "paste-link-and-fetch-full-title",
+            name: "Paste link and fetch full page title",
+            editorCallback: this.pasteLinkAndFetchFullTitle.bind(this),
         });
     }
 

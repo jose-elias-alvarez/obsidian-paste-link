@@ -79,6 +79,8 @@ A few examples from my configuration:
 | `^https?://(?:www\\.)?youtube\\.com`          | `(.+?)(?:\\s*-[^-]*$\|$)` | Rust Tutorial Full Course - YouTube                                | Rust Tutorial Full Course |
 | `.+?`                                         | `^(.+?)[\|–—•·-]`         | How to use promises - Learn web development \| MDN                 | How to use promises       |
 
+To temporarily skip any configured regexes and fetch the full page title, use the `Paste link and fetch full page title` command.
+
 ### Edge cases
 
 The paste handler tries to handle these edge cases intelligently:
