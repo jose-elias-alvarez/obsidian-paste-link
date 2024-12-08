@@ -19,7 +19,7 @@ const tryFetchTitle = async (url: URL, regexes: string[][]) => {
 
     const regex =
         regexes.find(([pageRegex]) =>
-            new RegExp(pageRegex).test(url.href)
+            new RegExp(pageRegex).test(url.href),
         )?.[1] || "";
     return cleanTitle(title, regex);
 };

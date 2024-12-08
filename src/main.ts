@@ -27,7 +27,7 @@ export default class PasteLinkPlugin extends Plugin {
         options: {
             fetchPageTitle?: boolean;
             fetchFullTitle?: boolean;
-        } = {}
+        } = {},
     ) {
         const { fetchPageTitle, fetchFullTitle } = {
             fetchPageTitle: this.settings.fetchPageTitle,
@@ -41,21 +41,21 @@ export default class PasteLinkPlugin extends Plugin {
                 title = await Promise.race([
                     tryFetchTitle(
                         url,
-                        fetchFullTitle ? [] : this.settings.pageTitleRegexes
+                        fetchFullTitle ? [] : this.settings.pageTitleRegexes,
                     ),
                     new Promise<undefined>((_, reject) =>
                         setTimeout(
                             () =>
                                 reject(
-                                    `Fetch page title timed out after ${this.settings.fetchPageTitleTimeout}`
+                                    `Fetch page title timed out after ${this.settings.fetchPageTitleTimeout}`,
                                 ),
-                            this.settings.fetchPageTitleTimeout
-                        )
+                            this.settings.fetchPageTitleTimeout,
+                        ),
                     ),
                 ]);
             } catch (error) {
                 console.error(
-                    `Failed to fetch page title for ${url.href}: ${error}`
+                    `Failed to fetch page title for ${url.href}: ${error}`,
                 );
             }
         }
@@ -95,7 +95,7 @@ export default class PasteLinkPlugin extends Plugin {
         const url = toUrl(content);
         if (!url) {
             new Notice(
-                `Failed to convert clipboard content to URL: ${content}`
+                `Failed to convert clipboard content to URL: ${content}`,
             );
             return;
         }
@@ -107,7 +107,7 @@ export default class PasteLinkPlugin extends Plugin {
         const url = toUrl(content);
         if (!url) {
             new Notice(
-                `Failed to convert clipboard content to URL: ${content}`
+                `Failed to convert clipboard content to URL: ${content}`,
             );
             return;
         }
@@ -128,7 +128,7 @@ export default class PasteLinkPlugin extends Plugin {
 
         if (this.settings.overridePasteHandler) {
             this.registerEvent(
-                this.app.workspace.on("editor-paste", this.onPaste.bind(this))
+                this.app.workspace.on("editor-paste", this.onPaste.bind(this)),
             );
         }
 
@@ -168,7 +168,7 @@ export default class PasteLinkPlugin extends Plugin {
         this.settings = Object.assign(
             {},
             DEFAULT_SETTINGS,
-            await this.loadData()
+            await this.loadData(),
         );
     }
 
