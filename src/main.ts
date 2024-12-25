@@ -8,6 +8,7 @@ import makeLink from "./utils/make-link";
 import toUrl from "./utils/to-url";
 
 export default class PasteLinkPlugin extends Plugin {
+    static icon = "clipboard-paste";
     settings: PasteLinkPluginSettings;
 
     insertIntoSelection(editor: Editor, link: string) {
@@ -136,6 +137,7 @@ export default class PasteLinkPlugin extends Plugin {
             id: "paste-link",
             name: "Paste Markdown link",
             editorCallback: this.pasteLink.bind(this),
+            icon: PasteLinkPlugin.icon,
         });
         this.addCommand({
             id: "paste-as-plain-text",
@@ -151,16 +153,19 @@ export default class PasteLinkPlugin extends Plugin {
                     ],
                 },
             ],
+            icon: PasteLinkPlugin.icon,
         });
         this.addCommand({
             id: "paste-link-and-fetch-title",
             name: "Paste link and fetch page title",
             editorCallback: this.pasteLinkAndFetchTitle.bind(this),
+            icon: PasteLinkPlugin.icon,
         });
         this.addCommand({
             id: "paste-link-and-fetch-full-title",
             name: "Paste link and fetch full page title",
             editorCallback: this.pasteLinkAndFetchFullTitle.bind(this),
+            icon: PasteLinkPlugin.icon,
         });
     }
 
