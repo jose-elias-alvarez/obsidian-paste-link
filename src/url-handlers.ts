@@ -33,15 +33,13 @@ export const defaultUrlHandler = async (url: URL) => {
         url: url.href,
         headers: {
             Accept: "text/html",
-            // assume title is in first 8kb
-            Range: "bytes=0-8000",
             // pretend to be desktop chrome to increase odds of getting a full title
             "User-Agent": `Mozilla/5.0 (${
                 Platform.isMacOS
                     ? "Macintosh; Intel Mac OS X 10_15_7"
                     : Platform.isWin
-                    ? "Windows NT 10.0; Win64; x64"
-                    : "X11; Linux x86_64"
+                      ? "Windows NT 10.0; Win64; x64"
+                      : "X11; Linux x86_64"
             }) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36`,
         },
     });
