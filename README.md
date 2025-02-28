@@ -110,6 +110,7 @@ This is not as scary as seems! Let's look at some examples:
 
 Additional notes:
 
+- To debug regexes, use the `Check URL` field in the plugin's settings to see if the provided URL produces the expected title.
 - If you're not good with regular expressions, copy-paste the documentation above and ask ChatGPT. (Naming things is hard.)
 - Since regexes are matched in order from top to bottom, you can set specific rules followed by general fallbacks.
 - To temporarily bypass any configured regexes, use the `Paste link and fetch full page title` command.

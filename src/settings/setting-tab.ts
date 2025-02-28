@@ -1,6 +1,7 @@
 import { App, Notice, PluginSettingTab, Setting } from "obsidian";
 import PasteLinkPlugin from "../main";
 import RegexSetting from "./regex";
+import UrlCheckSetting from "./url-check";
 
 export default class PasteLinkPluginSettingTab extends PluginSettingTab {
     plugin: PasteLinkPlugin;
@@ -84,5 +85,7 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
                 this.display();
             }),
         );
+
+        new UrlCheckSetting(this.plugin, this.containerEl);
     }
 }
