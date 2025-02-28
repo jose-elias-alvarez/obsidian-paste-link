@@ -32,7 +32,7 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
         new Setting(this.containerEl)
             .setName("Fetch page titles on paste")
             .setDesc(
-                "Attempt to fetch page titles from HTTP URLs on paste when paste handler is overridden",
+                "Attempt to fetch page titles from URLs on paste when paste handler is overridden",
             )
             .addToggle((toggle) =>
                 toggle
