@@ -33,6 +33,16 @@ export default class RegexSetting extends Setting {
                     })
                     .inputEl.addClass(CLASS_NAMES.regexInput),
             )
+            .addText((cb) =>
+                cb
+                    .setValue(regexes[2])
+                    .setPlaceholder("Template")
+                    .onChange(async (value) => {
+                        plugin.settings.pageTitleRegexes[index][2] = value;
+                        await plugin.saveSettings();
+                    })
+                    .inputEl.addClass(CLASS_NAMES.regexInput),
+            )
             .addExtraButton((cb) =>
                 cb
                     .setIcon("move-up")
