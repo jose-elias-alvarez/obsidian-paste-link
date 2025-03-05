@@ -63,4 +63,10 @@ describe("isCursorInLink", () => {
         const line = "This is a (malformed)[https://www.example.com] link";
         expect(isCursorInLink(cursor, line)).toBe(false);
     });
+
+    it("should return false if cursor is between wikilink and link", () => {
+        const cursor: EditorPosition = { line: 0, ch: 14 };
+        const line = "[[Wikilink]] some text [a link](https://google.com)";
+        expect(isCursorInLink(cursor, line)).toBe(false);
+    });
 });

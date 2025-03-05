@@ -1,10 +1,18 @@
 import { EditorPosition } from "obsidian";
 
 const isCursorInLink = (cursor: EditorPosition, line: string) => {
-    const regex = /\[(.*?)\]\((.*?)\)/g;
+    // \[          literal [
+    // ([^\[\]]*?) anything but []
+    // \]          literal ]
+    // \(          literal (
+    // ([^()]*?)   anything but ()
+    // \)          literal )
+    const regex = /\[([^\[\]]*?)\]\(([^()]*?)\)/g;
     let match;
     while ((match = regex.exec(line)) !== null) {
-        if (cursor.ch > match.index && cursor.ch < regex.lastIndex) {
+        const linkStart = match.index;
+        const linkEnd = match.index + match[0].length;
+        if (cursor.ch > linkStart && cursor.ch < linkEnd) {
             return true;
         }
     }
