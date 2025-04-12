@@ -1,6 +1,6 @@
 {
     "name": "obsidian-paste-link",
-    "version": "3.2.2",
+    "version": "3.3.0",
     "description": "Intelligently paste Markdown links",
     "main": "main.js",
     "scripts": {
