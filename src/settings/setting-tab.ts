@@ -1,6 +1,7 @@
 import { App, Notice, PluginSettingTab, Setting } from "obsidian";
 import PasteLinkPlugin from "../main";
 import RegexSetting from "./regex";
+import UrlCheckSetting from "./url-check";
 
 export default class PasteLinkPluginSettingTab extends PluginSettingTab {
     plugin: PasteLinkPlugin;
@@ -32,7 +33,7 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
         new Setting(this.containerEl)
             .setName("Fetch page titles on paste")
             .setDesc(
-                "Attempt to fetch page titles from HTTP URLs on paste when paste handler is overridden",
+                "Attempt to fetch page titles from URLs on paste when paste handler is overridden",
             )
             .addToggle((toggle) =>
                 toggle
@@ -84,5 +85,7 @@ export default class PasteLinkPluginSettingTab extends PluginSettingTab {
                 this.display();
             }),
         );
+
+        new UrlCheckSetting(this.plugin, this.containerEl);
     }
 }
