@@ -6,7 +6,10 @@ const tryFetchTitle = async (url: URL, regexes: string[][]) => {
     const match = regexes.find(([pageRegex]) =>
         new RegExp(pageRegex).test(url.href),
     );
-    if (!match) return;
+    if (!match) {
+        new Notice(`No matching page title regex found in settings`);
+        return;
+    }
 
     const [, regex, template] = match;
     let title: string | undefined;
