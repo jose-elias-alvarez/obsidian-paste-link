@@ -3,6 +3,9 @@ import { defaultUrlHandler, getSpecialUrlHandler } from "./url-handlers";
 import cleanTitle from "./utils/clean-title";
 
 const tryFetchTitle = async (url: URL, regexes: string[][]) => {
+    if (regexes.length === 0) {
+        regexes = [[".+", "(.+)"]];
+    }
     const match = regexes.find(([pageRegex]) =>
         new RegExp(pageRegex).test(url.href),
     );
