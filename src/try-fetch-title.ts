@@ -3,18 +3,6 @@ import { defaultUrlHandler, getSpecialUrlHandler } from "./url-handlers";
 import cleanTitle from "./utils/clean-title";
 
 const tryFetchTitle = async (url: URL, regexes: string[][]) => {
-    if (regexes.length === 0) {
-        regexes = [[".+", "(.+)"]];
-    }
-    const match = regexes.find(([pageRegex]) =>
-        new RegExp(pageRegex).test(url.href),
-    );
-    if (!match) {
-        new Notice(`No matching page title regex found in settings`);
-        return;
-    }
-
-    const [, regex, template] = match;
     let title: string | undefined;
     if (["http:", "https:"].includes(url.protocol)) {
         new Notice(`Attempting to fetch title from ${url.href}`);
@@ -30,7 +18,15 @@ const tryFetchTitle = async (url: URL, regexes: string[][]) => {
     } else {
         title = url.href;
     }
-    return cleanTitle(title, regex, template);
+    const match = regexes.find(([pageRegex]) =>
+        new RegExp(pageRegex).test(url.href),
+    );
+    if (match) {
+        const [, regex, template] = match;
+        return cleanTitle(title, regex, template);
+    } else {
+        return title;
+    }
 };
 
 export default tryFetchTitle;
